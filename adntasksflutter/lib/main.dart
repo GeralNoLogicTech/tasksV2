@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:adntasksflutter/features/tarefaetiqueta/tarefaetiqueta.dart'
     as tarefaetiqueta;
+import 'package:adntasksflutter/features/tarefaetiqueta/data/service/tarefaetiqueta_service.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    ChangeNotifierProvider<tarefaetiqueta.Manager>(
+      create: (context) {
+        var manager = tarefaetiqueta.Manager();
+        manager.initialize(
+          TarefaetiquetaService(),
+          'yourBaseUrl',
+        );
+        return manager;
+      },
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  const MainApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+        body: Center(child: tarefaetiqueta.TarefaetiquetaLista()),
       ),
     );
   }
