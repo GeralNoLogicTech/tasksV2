@@ -4,7 +4,7 @@ import 'package:adntasksflutter/features/tarefaetiqueta/tarefaetiqueta.dart'
     as tarefaetiqueta;
 
 class TarefaetiquetaLista extends StatefulWidget {
-  TarefaetiquetaLista({Key? key}) : super(key: key);
+  const TarefaetiquetaLista({Key? key}) : super(key: key);
 
   @override
   TarefaetiquetaListaState createState() => TarefaetiquetaListaState();
@@ -12,51 +12,61 @@ class TarefaetiquetaLista extends StatefulWidget {
 
 class TarefaetiquetaListaState extends State<TarefaetiquetaLista> {
   late final tarefaetiqueta.Manager manager;
-  final myController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    manager = Provider.of<tarefaetiqueta.Manager>(context, listen: false);
-    myController.text = manager.data.teste;
+    Future.microtask(
+        () => context.read<tarefaetiqueta.Manager>().actions.updateList());
   }
 
   @override
-  void dispose() {
-    super.dispose();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    manager = Provider.of<tarefaetiqueta.Manager>(context, listen: false);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(manager.data.teste),
+          title: const Text("Etiquetas"),
+          elevation: 5,
+          centerTitle: false,
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: myController,
-                  onChanged: (value) {
-                    setState(() {
-                      manager.data.teste = value;
-                    });
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(manager.data.teste),
-            ),
-          ],
+        body: ListView.builder(
+          itemCount: manager.data.list.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(
+                  manager.data.list[index].tarefaetiquetaTitulo.toString()),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => tarefaetiqueta.TarefaetiquetaFicha(
+                        tarefaItem: manager.data.list[index]),
+                  ),
+                );
+              }, // change .toString() to access your specific model properties
+            );
+          },
         ),
-        floatingActionButton: Flla(
+        floatingActionButton: FloatingActionButton.extended(
           onPressed: () {},
-          child: const Text("Teste"),
-        ));
+          label: const Text("Adicionar etiqueta"),
+          icon: const Icon(Icons.add),
+        ),
+        drawer: const Drawer(),
+        bottomNavigationBar: NavigationBar(destinations: const [
+          NavigationDestination(
+              icon: Icon(Icons.home),
+              label: "Home"),
+          NavigationDestination(
+              icon: Icon(Icons.search),
+              label: "Search"),
+        ],
+        elevation: 5),
+      );
   }
 }
