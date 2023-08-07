@@ -67,17 +67,17 @@ class Actions {
 
   Future create(Tarefaetiqueta tarefaetiqueta) async {
     await tarefaetiquetaService.post(tarefaetiqueta);
-    manager.updateListeners();
+    updateList();
   }
 
   Future edit(Tarefaetiqueta tarefaetiqueta) async {
     await tarefaetiquetaService.put(tarefaetiqueta);
-    manager.updateListeners();
+    updateList();
   }
 
   Future delete(int tarefaetiquetaId) async {
     await tarefaetiquetaService.delete(tarefaetiquetaId);
-    manager.updateListeners();
+    updateList();
   }
 }
 

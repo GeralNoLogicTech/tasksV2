@@ -45,7 +45,7 @@ class MainApp extends StatelessWidget {
         ),
         theme: ThemeData(
             useMaterial3: true,
-            colorSchemeSeed: Colors.blue)
+            colorSchemeSeed: Colors.green)
             );
   }
 }

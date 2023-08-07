@@ -32,15 +32,16 @@ class TarefaetiquetaService {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(tarefaetiqueta.toJson()),
+      body: jsonEncode(tarefaetiqueta.toJson(includeId: false)),
     );
 
-    if (response.statusCode == 201) {
-      return Tarefaetiqueta.fromJson(json.decode(response.body));
+    if (response.statusCode == 201 || response.statusCode == 200) {
+        return tarefaetiqueta; 
     } else {
-      throw Exception('Failed to create tarefaetiqueta');
+        print(response.body);
+        throw Exception('Failed to create tarefaetiqueta');
     }
-  }
+}
 
   Future<Tarefaetiqueta> put(Tarefaetiqueta tarefaetiqueta) async {
     final response = await http.put(

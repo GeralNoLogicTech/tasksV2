@@ -12,10 +12,15 @@ class Tarefaetiqueta {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'tarefaetiquetaId': tarefaetiquetaId,
-      'tarefaetiquetaTitulo': tarefaetiquetaTitulo,
-    };
+  Map<String, dynamic> toJson({bool includeId = true}) {
+    final Map<String, dynamic> data = {};
+    
+    if (includeId) {
+      data['tarefaetiquetaId'] = tarefaetiquetaId;
+    }
+    
+    data['tarefaetiquetaTitulo'] = tarefaetiquetaTitulo;
+    
+    return data;
   }
 }
