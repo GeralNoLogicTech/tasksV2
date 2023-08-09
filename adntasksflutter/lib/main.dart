@@ -8,7 +8,6 @@ void main() {
   runApp(
     FutureBuilder(
       future: _initializeManager(),
-
       builder: (context, AsyncSnapshot<tarefaetiqueta.Manager> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return ChangeNotifierProvider<tarefaetiqueta.Manager>.value(
@@ -18,7 +17,6 @@ void main() {
         } else {
           return const Center(child: CircularProgressIndicator());
         }
-        
       },
     ),
   );
@@ -43,9 +41,6 @@ class MainApp extends StatelessWidget {
         home: const Scaffold(
           body: Center(child: tarefaetiqueta.TarefaetiquetaLista()),
         ),
-        theme: ThemeData(
-            useMaterial3: true,
-            colorSchemeSeed: Colors.green)
-            );
+        theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.teal));
   }
 }

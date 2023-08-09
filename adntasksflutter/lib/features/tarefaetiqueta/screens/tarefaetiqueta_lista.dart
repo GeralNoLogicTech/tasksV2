@@ -42,38 +42,49 @@ class TarefaetiquetaListaState extends State<TarefaetiquetaLista> {
             onPressed: () {},
             icon: const Icon(Icons.search),
           ),
-          ],
+        ],
       ),
-      body: Card(
-        elevation: 1,
-        margin: const EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(0),
-      //set border radius more than 50% of height and width to make circle
-  ),
+      body: Material(
+        elevation: 3,
+        borderRadius: const BorderRadius.all(Radius.circular(0)),
+        surfaceTintColor: Colors.teal,
         borderOnForeground: false,
-        child: Consumer<tarefaetiqueta.Manager>(
-          builder: (context, manager, child) {
-            return ListView.builder(
-              itemCount: manager.data.list.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                      manager.data.list[index].tarefaetiquetaTitulo.toString()),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            tarefaetiqueta.TarefaetiquetaFicha(
-                                tarefaItem: manager.data.list[index]),
-                      ),
+        child: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(0)),
+          ),
+          margin: const EdgeInsets.all(10),
+          child: Card(
+            elevation: 1,
+            margin: const EdgeInsets.all(0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            borderOnForeground: false,
+            child: Consumer<tarefaetiqueta.Manager>(
+              builder: (context, manager, child) {
+                return ListView.builder(
+                  itemCount: manager.data.list.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(manager.data.list[index].tarefaetiquetaTitulo
+                          .toString()),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                tarefaetiqueta.TarefaetiquetaFicha(
+                                    tarefaItem: manager.data.list[index]),
+                          ),
+                        );
+                      },
                     );
                   },
                 );
               },
-            );
-          },
+            ),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
