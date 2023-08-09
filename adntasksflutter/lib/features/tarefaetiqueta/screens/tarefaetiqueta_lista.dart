@@ -12,6 +12,10 @@ class TarefaetiquetaLista extends StatefulWidget {
 
 class TarefaetiquetaListaState extends State<TarefaetiquetaLista> {
   late final tarefaetiqueta.Manager manager;
+  String searchText = '';
+  final TextEditingController _searchboxTextController =
+      TextEditingController();
+  final FocusNode _searchFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -39,13 +43,15 @@ class TarefaetiquetaListaState extends State<TarefaetiquetaLista> {
             icon: const Icon(Icons.filter_alt),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _searchFocusNode.requestFocus();
+            },
             icon: const Icon(Icons.search),
           ),
         ],
       ),
       body: Material(
-        elevation: 3,
+        elevation: 4,
         borderRadius: const BorderRadius.all(Radius.circular(0)),
         surfaceTintColor: Colors.teal,
         borderOnForeground: false,
@@ -54,36 +60,66 @@ class TarefaetiquetaListaState extends State<TarefaetiquetaLista> {
             borderRadius: BorderRadius.all(Radius.circular(0)),
           ),
           margin: const EdgeInsets.all(10),
-          child: Card(
-            elevation: 1,
-            margin: const EdgeInsets.all(0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            borderOnForeground: false,
-            child: Consumer<tarefaetiqueta.Manager>(
-              builder: (context, manager, child) {
-                return ListView.builder(
-                  itemCount: manager.data.list.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(manager.data.list[index].tarefaetiquetaTitulo
-                          .toString()),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                tarefaetiqueta.TarefaetiquetaFicha(
-                                    tarefaItem: manager.data.list[index]),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            ),
+          child: Column(
+            children: [
+              Card(
+                elevation: 0,
+                margin: const EdgeInsets.all(0),
+                shadowColor: null,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                borderOnForeground: false,
+                child: TextField(
+                    controller: _searchboxTextController,
+                    focusNode: _searchFocusNode,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.search),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          _searchboxTextController.clear();
+                        },
+                        icon: const Icon(Icons.clear),
+                      ),
+                      hintText: "Pesquisar",
+                      border: InputBorder.none,
+                    )),
+              ),
+              Expanded(
+                child: Card(
+                  elevation: 0,
+                  margin: const EdgeInsets.only(top: 5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  borderOnForeground: false,
+                  child: Consumer<tarefaetiqueta.Manager>(
+                    builder: (context, manager, child) {
+                      return ListView.builder(
+                        itemCount: manager.data.list.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(manager
+                                .data.list[index].tarefaetiquetaTitulo
+                                .toString()),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      tarefaetiqueta.TarefaetiquetaFicha(
+                                          tarefaItem: manager.data.list[index]),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
