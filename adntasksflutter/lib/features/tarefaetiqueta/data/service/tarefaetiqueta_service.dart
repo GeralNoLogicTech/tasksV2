@@ -36,16 +36,16 @@ class TarefaetiquetaService {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-        return tarefaetiqueta; 
+      return tarefaetiqueta;
     } else {
-        print(response.body);
-        throw Exception('Failed to create tarefaetiqueta');
+      print(response.body);
+      throw Exception('Failed to create tarefaetiqueta');
     }
-}
+  }
 
   Future<Tarefaetiqueta> put(Tarefaetiqueta tarefaetiqueta) async {
     final response = await http.put(
-      Uri.parse('$apiUrl/${tarefaetiqueta.tarefaetiquetaId}'),
+      Uri.parse(apiUrl), // Removing the ID from the URI
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -53,9 +53,11 @@ class TarefaetiquetaService {
     );
 
     if (response.statusCode == 200) {
+      // Parse the updated object from the response
       return Tarefaetiqueta.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to update tarefaetiqueta');
+      print(response.body);
+      throw Exception('Failed to edit tarefaetiqueta');
     }
   }
 
