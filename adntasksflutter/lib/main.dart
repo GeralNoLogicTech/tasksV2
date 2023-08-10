@@ -41,6 +41,6 @@ class MainApp extends StatelessWidget {
         home: const Scaffold(
           body: Center(child: tarefaetiqueta.TarefaetiquetaLista()),
         ),
-        theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.teal));
+        theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.green));
   }
 }

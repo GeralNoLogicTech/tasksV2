@@ -16,6 +16,8 @@ class TarefaetiquetaListaState extends State<TarefaetiquetaLista> {
   final TextEditingController _searchboxTextController =
       TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
+  bool _isSearchboxVisible = false;
+  late List<tarefaetiqueta.Tarefaetiqueta> _filteredList;
 
   @override
   void initState() {
@@ -39,68 +41,92 @@ class TarefaetiquetaListaState extends State<TarefaetiquetaLista> {
         elevation: 3,
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.filter_alt),
-          ),
-          IconButton(
             onPressed: () {
+              setState(() {
+                _isSearchboxVisible = !_isSearchboxVisible;
+              });
               _searchFocusNode.requestFocus();
             },
             icon: const Icon(Icons.search),
           ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.more_vert),
+          ),
         ],
       ),
       body: Material(
-        elevation: 4,
+        elevation: 10,
         borderRadius: const BorderRadius.all(Radius.circular(0)),
-        surfaceTintColor: Colors.teal,
+        surfaceTintColor: Colors.green,
         borderOnForeground: false,
         child: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(0)),
           ),
-          margin: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(2),
           child: Column(
             children: [
-              Card(
-                elevation: 0,
-                margin: const EdgeInsets.all(0),
-                shadowColor: null,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+              if (_isSearchboxVisible)
+                Card(
+                  elevation: 0,
+                  margin: const EdgeInsets.all(4),
+                  shadowColor: null,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  borderOnForeground: false,
+                  child: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          searchText = value;
+                        });
+                      },
+                      controller: _searchboxTextController,
+                      focusNode: _searchFocusNode,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            if (_searchboxTextController.text.isNotEmpty) {
+                              _searchboxTextController.clear();
+                              setState(() {
+                                searchText = '';
+                              });
+                            } else {
+                              setState(() {
+                                _isSearchboxVisible = false;
+                              });
+                            }
+                          },
+                          icon: const Icon(Icons.clear),
+                        ),
+                        hintText: "Pesquisar",
+                        border: InputBorder.none,
+                      )),
                 ),
-                borderOnForeground: false,
-                child: TextField(
-                    controller: _searchboxTextController,
-                    focusNode: _searchFocusNode,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.search),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          _searchboxTextController.clear();
-                        },
-                        icon: const Icon(Icons.clear),
-                      ),
-                      hintText: "Pesquisar",
-                      border: InputBorder.none,
-                    )),
-              ),
               Expanded(
                 child: Card(
                   elevation: 0,
-                  margin: const EdgeInsets.only(top: 5),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   borderOnForeground: false,
                   child: Consumer<tarefaetiqueta.Manager>(
                     builder: (context, manager, child) {
+                      _filteredList = searchText.isNotEmpty
+                          ? manager.data.list
+                              .where((item) => item.tarefaetiquetaTitulo
+                                  .toLowerCase()
+                                  .contains(searchText.toLowerCase()))
+                              .toList()
+                          : manager.data.list;
                       return ListView.builder(
-                        itemCount: manager.data.list.length,
+                        itemCount: _filteredList.length,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            title: Text(manager
-                                .data.list[index].tarefaetiquetaTitulo
+                            title: Text(_filteredList[index]
+                                .tarefaetiquetaTitulo
                                 .toString()),
                             onTap: () {
                               Navigator.push(
@@ -108,7 +134,7 @@ class TarefaetiquetaListaState extends State<TarefaetiquetaLista> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       tarefaetiqueta.TarefaetiquetaFicha(
-                                          tarefaItem: manager.data.list[index]),
+                                          tarefaItem: _filteredList[index]),
                                 ),
                               );
                             },
@@ -176,6 +202,9 @@ class TarefaetiquetaListaState extends State<TarefaetiquetaLista> {
                             tarefaetiquetaTitulo: titleController.text,
                           );
                           manager.actions.create(newTarefaetiqueta);
+                          setState(() {
+                            _filteredList = manager.data.list;
+                          });
                           Navigator.pop(context);
                         },
                       ),
