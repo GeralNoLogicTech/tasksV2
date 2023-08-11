@@ -153,18 +153,30 @@ class TarefaListaState extends State<TarefaLista> {
                                 child: ListTile(
                                   contentPadding:
                                       const EdgeInsets.only(left: 5),
-                                  dense: true,
                                   title: Text(_filteredList[index]
                                       .tarefaTitulo
                                       .toString()),
+                                  subtitle: const Text(
+                                      "Salvador Soares | Inovação | 20234"),
                                   leading: Checkbox(
                                     value: _filteredList[index].tarefaEncerrada,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
                                     onChanged: (bool? value) {
                                       setState(() {
                                         _filteredList[index].tarefaEncerrada =
                                             value!;
                                       });
                                     },
+                                  ),
+                                  trailing: Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: CircleAvatar(
+                                      child: Text(_filteredList[index]
+                                          .tarefaTitulo[0]
+                                          .toUpperCase()),
+                                    ),
                                   ),
                                 ),
                               ),
