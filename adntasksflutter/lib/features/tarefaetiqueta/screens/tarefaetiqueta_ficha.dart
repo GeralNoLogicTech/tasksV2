@@ -49,7 +49,7 @@ class TarefaetiquetaFichaState extends State<TarefaetiquetaFicha> {
         appBar: AppBar(
             title: const Text('Editar'),
             centerTitle: false,
-            elevation: 4,
+            elevation: 3,
             actions: [
               IconButton(
                 onPressed: () {
@@ -61,15 +61,15 @@ class TarefaetiquetaFichaState extends State<TarefaetiquetaFicha> {
               ),
             ]),
         body: Material(
-          elevation: 10,
+          elevation: 3,
           borderRadius: const BorderRadius.all(Radius.circular(0)),
-          surfaceTintColor: Colors.green,
+          surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
           borderOnForeground: false,
           child: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(0)),
             ),
-            margin: const EdgeInsets.all(2),
+            margin: const EdgeInsets.all(0),
             child: Column(
               children: [
                 Expanded(

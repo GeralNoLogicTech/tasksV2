@@ -56,15 +56,15 @@ class TarefaetiquetaListaState extends State<TarefaetiquetaLista> {
         ],
       ),
       body: Material(
-        elevation: 10,
         borderRadius: const BorderRadius.all(Radius.circular(0)),
-        surfaceTintColor: Colors.green,
+        surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
+        elevation: 3,
         borderOnForeground: false,
         child: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(0)),
           ),
-          margin: const EdgeInsets.all(2),
+          margin: const EdgeInsets.all(0),
           child: Column(
             children: [
               if (_isSearchboxVisible)
@@ -155,14 +155,17 @@ class TarefaetiquetaListaState extends State<TarefaetiquetaLista> {
         icon: const Icon(Icons.add),
       ),
       drawer: const Drawer(),
-      bottomNavigationBar: NavigationBar(destinations: const [
-        NavigationDestination(
-            icon: Icon(Icons.home_sharp), label: "Página inicial"),
-        NavigationDestination(
-            icon: Icon(Icons.message_sharp), label: "Notificações"),
-        NavigationDestination(icon: Icon(Icons.group), label: "Clientes"),
-        NavigationDestination(icon: Icon(Icons.folder), label: "Projetos"),
-      ], elevation: 3),
+      bottomNavigationBar: NavigationBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        destinations: const [
+          NavigationDestination(
+              icon: Icon(Icons.home_sharp), label: "Página inicial"),
+          NavigationDestination(
+              icon: Icon(Icons.message_sharp), label: "Notificações"),
+          NavigationDestination(icon: Icon(Icons.group), label: "Clientes"),
+          NavigationDestination(icon: Icon(Icons.folder), label: "Projetos"),
+        ],
+      ),
     );
   }
 
