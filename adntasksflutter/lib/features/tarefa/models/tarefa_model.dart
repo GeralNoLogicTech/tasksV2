@@ -2,17 +2,20 @@ class Tarefa {
   int tarefaId;
   String tarefaTitulo;
   bool tarefaEncerrada;
+  DateTime tarefaDatalimite;
 
   Tarefa(
       {required this.tarefaId,
       required this.tarefaTitulo,
-      required this.tarefaEncerrada});
+      required this.tarefaEncerrada,
+      required this.tarefaDatalimite});
 
   factory Tarefa.fromJson(Map<String, dynamic> json) {
     return Tarefa(
       tarefaId: json['tarefaId'],
       tarefaTitulo: json['tarefaTitulo'],
       tarefaEncerrada: json['tarefaEncerrada'],
+      tarefaDatalimite: DateTime.parse(json['tarefaDatalimite']),
     );
   }
 
@@ -25,6 +28,7 @@ class Tarefa {
 
     data['tarefaTitulo'] = tarefaTitulo;
     data['tarefaEncerrada'] = tarefaEncerrada;
+    data['tarefaDatalimite'] = tarefaDatalimite.toIso8601String();
 
     return data;
   }

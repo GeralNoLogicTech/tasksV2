@@ -27,10 +27,10 @@ class TarefaFichaState extends State<TarefaFicha> {
 
   void _saveEdits() {
     tarefa.Tarefa updatedTarefa = tarefa.Tarefa(
-      tarefaId: widget.tarefaItem.tarefaId,
-      tarefaTitulo: myController.text,
-      tarefaEncerrada: true,
-    );
+        tarefaId: widget.tarefaItem.tarefaId,
+        tarefaTitulo: myController.text,
+        tarefaEncerrada: true,
+        tarefaDatalimite: DateTime.now());
 
     manager.actions.edit(updatedTarefa);
     Navigator.pop(context);
