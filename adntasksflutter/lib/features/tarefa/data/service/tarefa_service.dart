@@ -38,7 +38,6 @@ class TarefaService {
     if (response.statusCode == 201 || response.statusCode == 200) {
       return tarefa;
     } else {
-      print(response.body);
       throw Exception('Failed to create tarefa');
     }
   }
@@ -56,7 +55,6 @@ class TarefaService {
       // Parse the updated object from the response
       return Tarefa.fromJson(json.decode(response.body));
     } else {
-      print(response.body);
       throw Exception('Failed to edit tarefa');
     }
   }

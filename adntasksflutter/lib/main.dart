@@ -40,19 +40,19 @@ class MainApp extends StatelessWidget {
         home: const Scaffold(
           body: Center(child: tarefa.TarefaLista()),
         ),
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 0, 114, 198),
-              primary: const Color.fromARGB(255, 0, 114, 198),
-              onPrimary: Colors.white,
-              secondary: Colors.teal,
-            ),
-            appBarTheme: const AppBarTheme(
-                color: Color.fromARGB(255, 0, 114, 198),
+                seedColor: const Color.fromARGB(255, 50, 117, 205),
+                primary: const Color.fromARGB(255, 50, 117, 205),
+                secondary: Colors.teal,
+                background: const Color.fromARGB(255, 248, 248, 248)),
+            appBarTheme: AppBarTheme(
+                color: Theme.of(context).colorScheme.primary,
                 foregroundColor: Colors.white),
             navigationBarTheme: const NavigationBarThemeData(
                 indicatorColor: Colors.white,
-                backgroundColor: Color.fromARGB(255, 242, 242, 242))));
+                backgroundColor: Color.fromARGB(255, 248, 248, 248))));
   }
 }

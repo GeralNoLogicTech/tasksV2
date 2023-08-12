@@ -38,7 +38,6 @@ class TarefaetiquetaService {
     if (response.statusCode == 201 || response.statusCode == 200) {
       return tarefaetiqueta;
     } else {
-      print(response.body);
       throw Exception('Failed to create tarefaetiqueta');
     }
   }
@@ -56,7 +55,6 @@ class TarefaetiquetaService {
       // Parse the updated object from the response
       return Tarefaetiqueta.fromJson(json.decode(response.body));
     } else {
-      print(response.body);
       throw Exception('Failed to edit tarefaetiqueta');
     }
   }
