@@ -87,7 +87,7 @@ class TarefaListaState extends State<TarefaLista> {
                     child: ElevatedButton.icon(
                       onPressed: null,
                       icon: const Icon(
-                        Icons.arrow_drop_down,
+                        Icons.expand_more,
                         color: Colors.white,
                       ),
                       label: const Text("Filtrar",
