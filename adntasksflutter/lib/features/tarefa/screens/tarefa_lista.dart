@@ -47,7 +47,7 @@ class TarefaListaState extends State<TarefaLista> {
     return AppBar(
       title: const Text("Tarefas"),
       centerTitle: false,
-      elevation: 3,
+      backgroundColor: Theme.of(context).primaryColor,
       actions: [
         IconButton(
           onPressed: () {
@@ -76,6 +76,47 @@ class TarefaListaState extends State<TarefaLista> {
         child: Column(
           children: [
             if (_isSearchboxVisible) _buildSearchBox(),
+            Container(
+              color: Theme.of(context).primaryColor,
+              alignment: AlignmentDirectional.bottomEnd,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5, right: 2),
+                    child: ElevatedButton.icon(
+                      onPressed: null,
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      ),
+                      label: const Text("Filtrar",
+                          style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor:
+                            Colors.white, //elevated btton background color
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: ElevatedButton.icon(
+                      onPressed: null,
+                      icon: const Icon(
+                        Icons.sort,
+                        color: Colors.white,
+                      ),
+                      label: const Text("Ordenar",
+                          style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor:
+                            Colors.white, //elevated btton background color
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
             Expanded(
               child: Material(
                 borderOnForeground: false,
@@ -225,6 +266,7 @@ class TarefaListaState extends State<TarefaLista> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
       ),
+      color: Colors.white,
       borderOnForeground: false,
       child: TextField(
           onChanged: (value) {
@@ -289,7 +331,7 @@ class TarefaListaState extends State<TarefaLista> {
   FloatingActionButton _buildFloatActionButton() {
     return FloatingActionButton.extended(
       onPressed: () => _showBottomsheetAddTarefa(context),
-      label: const Text("Adicionar tarefa"),
+      label: const Text("Adicionar tarefa", style: TextStyle(fontSize: 16)),
       icon: const Icon(Icons.add),
       backgroundColor: Theme.of(context).primaryColor,
       foregroundColor: Theme.of(context).primaryColorLight,

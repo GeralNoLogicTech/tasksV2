@@ -44,12 +44,14 @@ class MainApp extends StatelessWidget {
         theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color.fromARGB(255, 50, 117, 205),
-                primary: const Color.fromARGB(255, 50, 117, 205),
+                seedColor: const Color.fromARGB(255, 51, 118, 205),
+                primary: const Color.fromARGB(255, 51, 118, 205),
                 secondary: Colors.teal,
                 background: const Color.fromARGB(255, 248, 248, 248)),
             appBarTheme: AppBarTheme(
                 color: Theme.of(context).colorScheme.primary,
+                elevation: 0,
+                surfaceTintColor: Colors.white,
                 foregroundColor: Colors.white),
             navigationBarTheme: const NavigationBarThemeData(
                 indicatorColor: Colors.white,
